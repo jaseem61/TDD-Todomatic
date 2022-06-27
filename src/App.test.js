@@ -1,8 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import React from "react";
+import App from "./App";
+import AppForm from "./components/Form";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("App Component Layout", () => {
+  test("check if the heading is rendered", async () => {
+    render(<App />);
+    const headingText = screen.getByText("Todomatic");
+    expect(headingText).toBeDefined();
+  });
+
+  test("remaining task text to be rendered", async () => {
+    const { getByTestId } = render(<App />);
+    expect(getByTestId("remaining-task")).toHaveTextContent("0 task remaining");
+  });
 });
