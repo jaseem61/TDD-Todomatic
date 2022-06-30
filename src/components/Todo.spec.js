@@ -1,11 +1,12 @@
 import { fireEvent, getByTestId, render } from "@testing-library/react";
 import Todo from "./Todo";
 
-describe("Layout of Todo", () => {
+describe("Layout of Todo Component", () => {
   test("View layout should have checkbox", async () => {
     const { getByTestId } = render(<Todo />);
     expect(getByTestId("todo-checkbox")).toBeInTheDocument();
   });
+
   test("View layout should have edit button", async () => {
     const { getByTestId } = render(<Todo />);
     expect(getByTestId("todo-edit")).toBeInTheDocument();
@@ -16,12 +17,18 @@ describe("Layout of Todo", () => {
     expect(getByTestId("todo-delete")).toBeInTheDocument();
   });
 
+  test("View Component should display the name of the task", async () => {
+    const { getByTestId } = render(<Todo id="todo-1" name="Eat" />);
+    expect(getByTestId("todo-name")).toHaveTextContent("Eat");
+  });
+
   test("Edit Layout should have a form", async () => {
     const { getByTestId } = render(<Todo />);
     fireEvent.click(getByTestId("todo-edit"));
     expect(getByTestId("todo-edit-form")).toBeInTheDocument();
   });
-  test("Edit Layout should have a label", () => {
+
+  test("Edit Layout should have a label", async () => {
     const { getByTestId } = render(
       <Todo id="todo-1" completed={false} name="taskName" />
     );
@@ -30,6 +37,7 @@ describe("Layout of Todo", () => {
       "New name for taskName"
     );
   });
+
   test("Edit layout should have input to change the task name", async () => {
     const { getByTestId } = render(
       <Todo id="todo-1" completed={false} name="taskName" />
@@ -56,8 +64,9 @@ describe("Layout of Todo", () => {
 });
 
 describe("Functionality of Todo Component", () => {
+  const deleteTask = jest.fn();
+  const editTask = jest.fn();
   test("checking delete functionaltiy of Todo", async () => {
-    const deleteTask = jest.fn();
     const { getByTestId } = render(
       <Todo
         id="todo-1"
@@ -87,8 +96,7 @@ describe("Functionality of Todo Component", () => {
     expect(getByTestId("todo-checkbox")).toBeInTheDocument();
   });
 
-  test("App should update the new name set for the task", async () => {
-    const editTask = jest.fn();
+  test("App should call the update method for the new task name set", async () => {
     const { getByTestId } = render(
       <Todo id="todo-1" completed={false} name="taskName" editTask={editTask} />
     );

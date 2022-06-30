@@ -6,20 +6,20 @@ const mockedAddTodo = jest.fn();
 
 describe("Form Component layout", () => {
   test("check if form tag is present", async () => {
-    render(<Form />);
-    const formElement = screen.getByTestId("todo-form");
+    const { getByTestId } = render(<Form />);
+    const formElement = getByTestId("todo-form");
     expect(formElement).toBeDefined();
   });
 
   test("Heading present on the layout ", async () => {
-    render(<Form />);
-    const headingElement = screen.getByTestId("form-heading");
+    const { getByTestId } = render(<Form />);
+    const headingElement = getByTestId("form-heading");
     expect(headingElement).toHaveTextContent("What needs to be done?");
   });
 
   test("Input should not have any initial value", async () => {
-    render(<Form />);
-    const inputElement = screen.getByTestId("form-input");
+    const { getByTestId } = render(<Form />);
+    const inputElement = getByTestId("form-input");
     expect(inputElement).toHaveValue("");
   });
 

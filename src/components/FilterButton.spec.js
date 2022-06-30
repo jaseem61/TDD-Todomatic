@@ -15,8 +15,8 @@ describe("Filter Button Layout", () => {
   });
 });
 
-const mockedSetFilter = jest.fn();
-describe("Functionality of the button", () => {
+describe("Functionality of the Filter button", () => {
+  const mockedSetFilter = jest.fn();
   test("should execute the prop function on click", async () => {
     const name = "All";
     const { getByTestId } = render(
